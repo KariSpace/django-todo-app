@@ -2,10 +2,14 @@
 <table class="table">
     <tr>
         <th>Item</th>
+        <th></th>
     </tr>
     {% for task in tasks %}
     <tr>
         <td>{{task.title}}</td>
+        <td>
+            <a href="{% url  'details' task.id %}">View</a>
+        </td>
     </tr>
     {% empty %}
     <h3 class="h3">No items in list</h3>
