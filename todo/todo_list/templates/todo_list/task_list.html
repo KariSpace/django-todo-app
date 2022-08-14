@@ -5,6 +5,7 @@
         <th>Item</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     {% for task in tasks %}
     <tr>
@@ -14,6 +15,9 @@
         </td>
         <td>
             <a href="{% url  'update' task.id %}">Edit</a>
+        </td>
+        <td>
+            <a href="{% url  'delete' task.id %}">Delete</a>
         </td>
     </tr>
     {% empty %}
