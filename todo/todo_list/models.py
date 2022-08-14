@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 # Create your models here.
 
@@ -12,10 +14,15 @@ class Task(models.Model):
     create = models.DateTimeField(auto_now_add=True)
     have_deadline = models.BooleanField(default=False)
     deadline = models.DateTimeField(null=True, blank=True)
+    importancy = models.IntegerField(blank=True, default=1, validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1)
+        ])
+
+
 
     def __str__(self): 
         return self.title
 
     class Meta:
-        ordering = ['complete', 'deadline']
-        # order_with_respect_to = 'deadline'
+        ordering = ['complete', 'deadline', 'importancy']
