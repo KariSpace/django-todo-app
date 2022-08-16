@@ -26,3 +26,4 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['complete', 'deadline', 'importancy']
+

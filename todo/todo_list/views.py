@@ -1,4 +1,5 @@
 # from attr import field
+from multiprocessing import context
 from trace import Trace
 from django.shortcuts import render
 # from django.http import HttpResponse
@@ -42,6 +43,15 @@ class TaskList(LoginRequiredMixin, ListView):
    model = Task
    context_object_name = 'tasks'
 
+   def get_context_data(self, **kwargs):
+
+      context = super().get_context_data(**kwargs)
+      print(context)
+      context['tasks'] = context['tasks'].filter(user=self.request.user)
+      context['count'] = context['tasks'].filter(complete=False)
+      return context
+
+
 
 
 class TaskDetail(LoginRequiredMixin, DetailView): 
@@ -51,8 +61,22 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 
 class TaskCreate(LoginRequiredMixin, CreateView): 
    model = Task
+
    fields = '__all__'
    success_url = reverse_lazy('tasks')
+
+
+   def get_context_data(self, **kwargs):
+         context = super().get_context_data(**kwargs)
+         print(context)
+         print('fields')
+         return context
+
+   def form_valid (self, form) : 
+      from django.forms.widgets import HiddenInput
+      form.fields["user"].widget = HiddenInput()
+      form.instance.user = self.request.user
+      return super(TaskCreate, self).form_valid(form)
 
 class TaskUpdate(LoginRequiredMixin, UpdateView): 
    model = Task
