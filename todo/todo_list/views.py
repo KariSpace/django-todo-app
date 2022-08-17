@@ -1,26 +1,19 @@
 # from attr import field
 from multiprocessing import context
+from re import template
 from trace import Trace
 from django.shortcuts import render
 # from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.urls import resolve
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth import login 
 from .models import Task
-
-# class CustomUserLogOut(LogoutView):
-#    # template_name = 'todo_list/login.html'
-#    fields = '__all__'
-#    redirect_authenticated_user = True
-#    success_url = reverse_lazy('login')
-
-#    def get_success_url(self):
-#        return reverse_lazy('login')
 
 
 class CustomUserLogin(LoginView):
@@ -51,7 +44,11 @@ class TaskList(LoginRequiredMixin, ListView):
       context['count'] = context['tasks'].filter(complete=False)
       return context
 
-
+class RegisterPage(FormView):
+   template_name = 'todo_list/register.html'
+   from_class = UserCreationForm
+   redirect_authenticated_user = True
+   success_url = reverse_lazy('tasks')
 
 
 class TaskDetail(LoginRequiredMixin, DetailView): 

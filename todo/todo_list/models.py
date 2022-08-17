@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+
 # Create your models here.
 
 class Task(models.Model):
@@ -26,4 +27,3 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['complete', 'deadline', 'importancy']
-
