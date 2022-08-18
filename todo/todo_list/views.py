@@ -48,7 +48,7 @@ class TaskList(LoginRequiredMixin, ListView):
 
 class RegisterPage(FormView):
    template_name = 'todo_list/register.html'
-   from_class = UserCreationForm
+   form_class = UserCreationForm
    redirect_authenticated_user = True
    success_url = reverse_lazy('tasks')
 
