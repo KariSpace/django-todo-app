@@ -12,7 +12,8 @@ from django.urls import resolve
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm 
-from django.contrib.auth import login 
+from django.contrib.auth import login
+from jinja2 import Undefined 
 from .models import Task
 
 
@@ -24,7 +25,7 @@ class CustomUserLogin(LoginView):
    def get_success_url(self,  **kwargs):
       context = super().get_context_data(**kwargs)
       print(context)
-      if (context['next']):
+      if (context['next'] and context['next'] != '/'):
          redirect_field_name = context['next'].split('/')
          return reverse_lazy(redirect_field_name[1], kwargs={'pk': redirect_field_name[2]})
 
@@ -41,7 +42,8 @@ class TaskList(LoginRequiredMixin, ListView):
       context = super().get_context_data(**kwargs)
       print(context)
       context['tasks'] = context['tasks'].filter(user=self.request.user)
-      context['count'] = context['tasks'].filter(complete=False)
+      context['count'] = context['tasks'].filter(complete=False).count()
+      context['count_complete'] = context['tasks'].filter(complete=True).count()
       return context
 
 class RegisterPage(FormView):
@@ -58,26 +60,20 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 
 class TaskCreate(LoginRequiredMixin, CreateView): 
    model = Task
-
-   fields = '__all__'
+   fields =  ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
-
 
    def get_context_data(self, **kwargs):
          context = super().get_context_data(**kwargs)
-         print(context)
-         print('fields')
          return context
 
    def form_valid (self, form) : 
-      from django.forms.widgets import HiddenInput
-      form.fields["user"].widget = HiddenInput()
       form.instance.user = self.request.user
       return super(TaskCreate, self).form_valid(form)
 
 class TaskUpdate(LoginRequiredMixin, UpdateView): 
    model = Task
-   fields = '__all__'
+   fields = ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
 
 class TaskDelete(LoginRequiredMixin, DeleteView): 
