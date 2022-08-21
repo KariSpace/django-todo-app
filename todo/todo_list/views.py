@@ -2,18 +2,24 @@
 from multiprocessing import context
 from re import template
 from trace import Trace
-from django.shortcuts import render
+from jinja2 import Undefined 
+
 # from django.http import HttpResponse
+
+
+from django.shortcuts import render, redirect
+from django.shortcuts import resolve_url
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
-from django.urls import resolve
+
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import login
-from jinja2 import Undefined 
+
+from django.http import HttpResponseRedirect
 from .models import Task
 
 
@@ -26,10 +32,16 @@ class CustomUserLogin(LoginView):
       context = super().get_context_data(**kwargs)
       print(context)
       if (context['next'] and context['next'] != '/'):
+         return resolve_url(context['next'])
+         
+         # Old, bad way to redirect
          redirect_field_name = context['next'].split('/')
          return reverse_lazy(redirect_field_name[1], kwargs={'pk': redirect_field_name[2]})
 
       return reverse_lazy('tasks')
+
+
+
 
 # Create your views here.
 class TaskList(LoginRequiredMixin, ListView): 
@@ -51,6 +63,16 @@ class RegisterPage(FormView):
    form_class = UserCreationForm
    redirect_authenticated_user = True
    success_url = reverse_lazy('tasks')
+   def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request, user)
+        return super(RegisterPage, self).form_valid(form)
+
+   def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('tasks')
+        return super(RegisterPage, self).get(*args, **kwargs)
 
 
 class TaskDetail(LoginRequiredMixin, DetailView): 
@@ -60,6 +82,8 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 
 class TaskCreate(LoginRequiredMixin, CreateView): 
    model = Task
+
+   # will make it more pretty sometime later
    fields =  ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
 
@@ -73,6 +97,8 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 
 class TaskUpdate(LoginRequiredMixin, UpdateView): 
    model = Task
+   
+   # will make it more pretty sometime later
    fields = ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
 
