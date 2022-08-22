@@ -3,7 +3,11 @@
 <a href="{% url 'logout' %}">Log Out</a> {% else %}
 <a href="{% url 'login' %}">Log In</a> {% endif %}
 
-
+<form method="GET">
+    <input type="text" name="search" value="{{search_input}}">
+    <input type="submit" value="Search">
+</form>
+<br>
 <h1 class="h1">My todo list</h1>
 <a href="{% url  'create' %}">Create task</a>
 <table class="table">

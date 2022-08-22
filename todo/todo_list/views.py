@@ -2,6 +2,7 @@
 from multiprocessing import context
 from re import template
 from trace import Trace
+from turtle import title
 from jinja2 import Undefined 
 
 # from django.http import HttpResponse
@@ -56,7 +57,13 @@ class TaskList(LoginRequiredMixin, ListView):
       context['tasks'] = context['tasks'].filter(user=self.request.user)
       context['count'] = context['tasks'].filter(complete=False).count()
       context['count_complete'] = context['tasks'].filter(complete=True).count()
+
+      search_input = self.request.GET.get('search') or ''
+      context['tasks'] = context['tasks'].filter(title__icontains=search_input)
+      context['search_input'] = search_input
       return context
+
+
 
 class RegisterPage(FormView):
    template_name = 'todo_list/register.html'
