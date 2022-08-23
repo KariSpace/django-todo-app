@@ -20,7 +20,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import login
 
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from .models import Task
 
 
@@ -42,8 +42,6 @@ class CustomUserLogin(LoginView):
       return reverse_lazy('tasks')
 
 
-
-
 # Create your views here.
 class TaskList(LoginRequiredMixin, ListView): 
    
@@ -62,7 +60,6 @@ class TaskList(LoginRequiredMixin, ListView):
       context['tasks'] = context['tasks'].filter(title__icontains=search_input)
       context['search_input'] = search_input
       return context
-
 
 
 class RegisterPage(FormView):
@@ -87,6 +84,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
    context_object_name = 'detail'
    template_name = 'todo_list/detail.html'
 
+
 class TaskCreate(LoginRequiredMixin, CreateView): 
    model = Task
 
@@ -102,6 +100,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
       form.instance.user = self.request.user
       return super(TaskCreate, self).form_valid(form)
 
+
 class TaskUpdate(LoginRequiredMixin, UpdateView): 
    model = Task
    
@@ -109,7 +108,16 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
    fields = ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
 
+   def dispatch(self, request, *args, **kwargs):
+      task=self.get_object()
+      if task.user != self.request.user:
+         raise Http404("You don't have permission to edit this Task")
+         # return render('404.html')  
+      return super().dispatch(request, *args, **kwargs)
+
+
 class TaskDelete(LoginRequiredMixin, DeleteView): 
    model = Task
    context_object_name = 'task'
    success_url = reverse_lazy('tasks')
+

@@ -1,4 +1,4 @@
-{% if request.user.is_authenticated %}
+{% extends 'main-template.html' %} {% block content %} {% if request.user.is_authenticated %}
 <p>{{request.user}}</p>
 <a href="{% url 'logout' %}">Log Out</a> {% else %}
 <a href="{% url 'login' %}">Log In</a> {% endif %}
@@ -34,3 +34,4 @@
     <h3 class="h3">No items in list</h3>
     {% endfor %}
 </table>
+{% endblock content %}
