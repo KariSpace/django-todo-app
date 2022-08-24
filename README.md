@@ -1,5 +1,6 @@
 # Practice todo app
 
+<img width="1438" alt="image" src="https://user-images.githubusercontent.com/52755167/186513969-f63cb9f5-0f8b-4cfb-bd50-8fc55f46cc98.png">
 
 
 Based on [Dennis Ivy YouTube tutorial](https://www.youtube.com/watch?v=llbtoQTt4qw) but with customization during process.
