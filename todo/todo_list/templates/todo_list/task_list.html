@@ -1,13 +1,20 @@
-{% extends 'main-template.html' %} {% block content %} {% if request.user.is_authenticated %}
-<p>{{request.user}}</p>
-<a href="{% url 'logout' %}">Log Out</a> {% else %}
-<a href="{% url 'login' %}">Log In</a> {% endif %}
+{% extends 'main-template.html' %} {% block content %}
 
 <div class="container search_container">
-    <form method="GET">
-        <input type="text" name="search" value="{{search_input}}">
-        <input type="submit" value="Search">
+
+    <div class="user_container">
+        {% if request.user.is_authenticated %} {{request.user}}
+
+        <a href="{% url 'logout' %}">Log Out</a> {% else %}
+        <a href="{% url 'login' %}">Log In</a> {% endif %}
+    </div>
+    <form method="GET" class="input_box">
+        <input type="text" name="search" class="search_box" value="{{search_input}}">
+        <span class="icon">
+        <input type="submit" class="button search_icon" value="Search">
+        </span>
     </form>
+
 </div>
 
 <div class="container">
@@ -21,7 +28,6 @@
 
         <div class="rating_conteiner">
 
-
             {% for i in '01234'|make_list %} {% if task.importancy >= forloop.counter %} <span>&starf;</span> {% else %} <span> &star; </span> {% endif %} {% endfor %}
 
         </div>
@@ -31,16 +37,16 @@
         <p> {{task.description}} </p>
         <p> {{task.categories}} </p>
         <p>deadline: {{task.deadline}} </p>
-        <p>importancy: {{task.importancy}} </p>
+
 
 
 
 
         <div class="todo_buttons__container">
             <div class="todo_buttons__list">
-                <a href="{% url  'complete' task.id %}" class="todo_button ">Complete</a>
-                <a href="{% url  'update' task.id %}" class="todo_button light"> Edit</a>
-                <a href="{% url  'delete' task.id %}" class="todo_button light">Delete</a>
+                <a href="{% url  'complete' task.id %}" class="button todo_button ">Complete</a>
+                <a href="{% url  'update' task.id %}" class="button todo_button light"> Edit</a>
+                <a href="{% url  'delete' task.id %}" class="button todo_button light">Delete</a>
             </div>
         </div>
     </div>
@@ -49,7 +55,9 @@
     {% endfor %}
 </div>
 
-<p> You completed {{count_completed}} tasks</p>
+<div class="container">
+    <p> You completed {{count_completed}} tasks</p>
+</div>
 <div class="tacks_container container completed_container">
     {% for task_completed in tasks_completed %}
 

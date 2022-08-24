@@ -1,217 +1,240 @@
-    * {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    
-    body {
-        padding: 0;
-        margin: 0;
-        font-family: 'Abel';
-    }
-    
-    p,
-    a {
-        line-height: 1.5;
-    }
-    
-    .wrapper {
-        margin: 20px;
-    }
-    
-    .container {
-        max-width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        max-height: 40vh;
-        overflow-y: auto;
-        margin: 20px;
-    }
-    
-    .completed_container {
-        max-height: 20vh;
-    }
-    
-    .container_title {
-        margin-right: 20px;
-    }
-    
-    .tacks_container {
-        background-color: aliceblue;
-    }
-    
-    .search_container {
-        margin: 30px;
-    }
-    
-    .button {
-        background: rgb(127, 158, 241);
-        padding: 0px 10px;
-        width: 100px;
-        color: #fff;
-        border-radius: 5px;
-        text-align: center;
-        text-decoration: none;
-    }
-    
-    .task {
-        position: relative;
-        width: 290px;
-        min-width: 250px;
-        border: 1px solid rgb(127, 158, 241);
-        margin: 20px;
-        padding: 20px;
-        padding-bottom: 50px;
-        border-radius: 5px;
-    }
-    
-    .completed {
-        padding-bottom: 20px;
-        border: 1px solid darkseagreen;
-    }
-    
-    .rating_conteiner {
-        position: absolute;
-        top: -8px;
-        right: 15px;
-        font-size: 16px;
-        color: rgb(62, 94, 184);
-        background-color: aliceblue;
-    }
-    
-    .task_title {
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 1;
-        padding: 10px 0;
-        border-bottom: 1px solid rgb(127, 158, 241);
-    }
-    
-    .task_title__completed {
-        border-bottom: 1px solid darkseagreen;
-    }
-    
-    .todo_buttons__container {
-        width: 90%;
-        position: absolute;
-        bottom: 10px;
-    }
-    
-    .todo_buttons__list {
-        display: flex;
-        justify-content: space-around;
-    }
-    
-    .todo_button {
-        background: rgb(127, 158, 241);
-        padding: 0px 10px;
-        width: 80px;
-        color: #fff;
-        border-radius: 5px;
-        text-align: center;
-        text-decoration: none;
-    }
-    
-    .light {
-        border: 1px solid rgb(127, 158, 241);
-        background: transparent;
-        color: rgb(127, 158, 241);
-    }
-    /* 404 */
-    
-    #notfound {
-        position: relative;
-        height: 100vh;
-    }
-    
-    #notfound .notfound {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-    }
-    
-    .notfound {
-        max-width: 767px;
-        width: 100%;
-        line-height: 1.4;
-        text-align: center;
-        padding: 15px;
-    }
-    
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Abel';
+}
+
+input {
+    font-family: 'Abel';
+    font-size: 15px;
+}
+
+p,
+a {
+    line-height: 1.5;
+}
+
+.wrapper {
+    margin: 20px;
+}
+
+.container {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-height: 40vh;
+    overflow-y: auto;
+    margin: 20px;
+}
+
+.search_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search_box {
+    border: 1px solid rgb(62, 94, 184);
+    border-radius: 5px 0 0 5px;
+}
+
+input.search_icon {
+    height: 100%;
+    width: auto;
+    border-radius: 0 5px 5px 0;
+}
+
+.completed_container {
+    max-height: 20vh;
+}
+
+.container_title {
+    margin-right: 20px;
+}
+
+.tacks_container {
+    background-color: aliceblue;
+}
+
+.search_container {
+    margin: 30px;
+}
+
+.button {
+    background: rgb(84, 113, 194);
+    border: 1px solid rgb(84, 113, 194);
+    padding: 0px 10px;
+    width: 100px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.task {
+    position: relative;
+    width: 290px;
+    min-width: 250px;
+    border: 1px solid rgb(127, 158, 241);
+    margin: 20px;
+    padding: 20px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+}
+
+.completed {
+    padding-bottom: 20px;
+    border: 1px solid darkseagreen;
+}
+
+.rating_conteiner {
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    font-size: 16px;
+    color: rgb(62, 94, 184);
+    background-color: aliceblue;
+}
+
+.task_title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1;
+    padding: 10px 0;
+    border-bottom: 1px solid rgb(127, 158, 241);
+}
+
+.task_title__completed {
+    border-bottom: 1px solid darkseagreen;
+}
+
+.todo_buttons__container {
+    width: 250px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.todo_buttons__list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo_button {
+    padding: 0px 10px;
+    width: 76px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.light {
+    border: 1px solid rgb(62, 94, 184);
+    background: transparent;
+    color: rgb(62, 94, 184);
+}
+
+
+/* 404 */
+
+#notfound {
+    position: relative;
+    height: 100vh;
+}
+
+#notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.notfound {
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    padding: 15px;
+}
+
+.notfound .notfound-404 {
+    position: relative;
+    height: 220px;
+}
+
+.notfound .notfound-404 h1 {
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 186px;
+    font-weight: 200;
+    margin: 0px;
+    background: linear-gradient(130deg, #ffa34f, #ff6f68);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-transform: uppercase;
+}
+
+.notfound h2 {
+    font-family: 'Kanit', sans-serif;
+    font-size: 33px;
+    font-weight: 200;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+}
+
+.notfound p {
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+.notfound a {
+    display: block;
+    font-family: 'Kanit', sans-serif;
+    color: #fff;
+    font-weight: 200;
+    line-height: 2;
+    text-decoration: none;
+    background: linear-gradient(130deg, #ffa34f, #ff6f68);
+    border-radius: 5px;
+    transition: 4s;
+    transform: scale(1.1);
+    width: 200px;
+    margin: 10px auto;
+}
+
+.notfound a:hover {
+    background: linear-gradient(150deg, #ffa34f, #ff6f68);
+    transition: 4s;
+    transform: scale(1);
+}
+
+@media only screen and (max-width: 480px) {
     .notfound .notfound-404 {
         position: relative;
-        height: 220px;
+        height: 168px;
     }
-    
     .notfound .notfound-404 h1 {
-        font-family: 'Kanit', sans-serif;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        font-size: 186px;
-        font-weight: 200;
-        margin: 0px;
-        background: linear-gradient(130deg, #ffa34f, #ff6f68);
-        color: transparent;
-        -webkit-background-clip: text;
-        background-clip: text;
-        text-transform: uppercase;
+        font-size: 142px;
     }
-    
     .notfound h2 {
-        font-family: 'Kanit', sans-serif;
-        font-size: 33px;
-        font-weight: 200;
-        text-transform: uppercase;
-        margin-top: 0px;
-        margin-bottom: 25px;
-        letter-spacing: 3px;
+        font-size: 22px;
     }
-    
-    .notfound p {
-        font-family: 'Kanit', sans-serif;
-        font-size: 16px;
-        font-weight: 200;
-        margin-top: 0px;
-        margin-bottom: 25px;
-    }
-    
-    .notfound a {
-        display: block;
-        font-family: 'Kanit', sans-serif;
-        color: #fff;
-        font-weight: 200;
-        line-height: 2;
-        text-decoration: none;
-        background: linear-gradient(130deg, #ffa34f, #ff6f68);
-        border-radius: 5px;
-        transition: 4s;
-        transform: scale(1.1);
-        width: 200px;
-        margin: 10px auto;
-    }
-    
-    .notfound a:hover {
-        background: linear-gradient(150deg, #ffa34f, #ff6f68);
-        transition: 4s;
-        transform: scale(1);
-    }
-    
-    @media only screen and (max-width: 480px) {
-        .notfound .notfound-404 {
-            position: relative;
-            height: 168px;
-        }
-        .notfound .notfound-404 h1 {
-            font-size: 142px;
-        }
-        .notfound h2 {
-            font-size: 22px;
-        }
-    }
+}
