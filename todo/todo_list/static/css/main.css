@@ -6,7 +6,100 @@
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Abel';
 }
+
+p,
+a {
+    line-height: 1.5;
+}
+
+.wrapper {
+    margin: 20px;
+}
+
+.container {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-height: 40vh;
+    overflow-y: auto;
+    margin: 20px;
+}
+
+.completed_container {
+    max-height: 20vh;
+}
+
+.container_title {
+    margin-right: 20px;
+}
+
+.tacks_container {
+    background-color: aliceblue;
+}
+
+.tacks_container>p,
+.task>p {
+    line-height: 2;
+}
+
+.search_container {
+    margin: 30px;
+}
+
+.button {
+    background: rgb(127, 158, 241);
+    padding: 0px 10px;
+    width: 100px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.task {
+    width: 290px;
+    min-width: 250px;
+    border: 1px solid rgb(127, 158, 241);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.completed {
+    border: 1px solid darkseagreen;
+}
+
+.task_title {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.todo_buttons__container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.todo_button {
+    background: rgb(127, 158, 241);
+    padding: 0px 10px;
+    width: 80px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.delete {
+    border: 1px solid rgb(127, 158, 241);
+    background: transparent;
+    color: rgb(127, 158, 241);
+}
+
+
+/* 404 */
 
 #notfound {
     position: relative;
@@ -103,8 +196,4 @@ body {
     .notfound h2 {
         font-size: 22px;
     }
-}
-
-body {
-    background-color: blanchedalmond;
 }

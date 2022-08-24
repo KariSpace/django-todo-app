@@ -3,35 +3,52 @@
 <a href="{% url 'logout' %}">Log Out</a> {% else %}
 <a href="{% url 'login' %}">Log In</a> {% endif %}
 
-<form method="GET">
-    <input type="text" name="search" value="{{search_input}}">
-    <input type="submit" value="Search">
-</form>
-<br>
-<h1 class="h1">My todo list</h1>
-<a href="{% url  'create' %}">Create task</a>
-<table class="table">
-    <tr>
-        <th>Item</th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
+<div class="container search_container">
+    <form method="GET">
+        <input type="text" name="search" value="{{search_input}}">
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<div class="container">
+    <p class="container_title"> You have {{count}} tasks to do</p>
+    <a href="{% url  'create' %}" class="button">Create task</a>
+
+</div>
+<div class="tacks_container container">
     {% for task in tasks %}
-    <tr>
-        <td>{{task.title}}</td>
-        <td>
-            <a href="{% url  'details' task.id %}">View</a>
-        </td>
-        <td>
-            <a href="{% url  'update' task.id %}">Edit</a>
-        </td>
-        <td>
-            <a href="{% url  'delete' task.id %}">Delete</a>
-        </td>
-    </tr>
+    <div class="task">
+        <p class="task_title">{{task.title}}</p>
+        <p> {{task.description}} </p>
+        <p> {{task.categories}} </p>
+        <p>deadline: {{task.deadline}} </p>
+        <p>importancy: {{task.importancy}} </p>
+        <div class="todo_buttons__container">
+            <a href="{% url  'update' task.id %}" class="todo_button edit"> Edit</a>
+
+            <a href="{% url  'delete' task.id %}" class="todo_button delete">Delete</a>
+        </div>
+    </div>
     {% empty %}
-    <h3 class="h3">No items in list</h3>
+    <h3 class="h3">Nothing to do</h3>
     {% endfor %}
-</table>
+</div>
+
+<p> You completed {{count_completed}} tasks</p>
+<div class="tacks_container container completed_container">
+    {% for task_completed in tasks_completed %}
+
+
+    <div class="task completed">
+        <p class="task_title"> {{task_completed.title}}</p>
+        <p> {{task_completed.description}} </p>
+
+    </div>
+    {% empty %}
+
+    <h3 class="h3">No completed</h3>
+    {% endfor %}
+
+</div>
+
 {% endblock content %}

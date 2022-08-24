@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     <title>To do list</title>
@@ -14,7 +17,8 @@
 
 <body>
     <div class="wrapper">
-        <div class="container">
+
+        <div class="main_container">
             {% block content %} {% endblock content %}
         </div>
 
