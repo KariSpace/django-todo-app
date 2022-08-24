@@ -1,4 +1,5 @@
 # from attr import field
+from ast import Import
 from multiprocessing import context
 from re import template
 from trace import Trace
@@ -52,11 +53,24 @@ class TaskList(LoginRequiredMixin, ListView):
 
       context = super().get_context_data(**kwargs)
 
+      # importancy = context['tasks']['importancy']
+      # importancy_range = ''
+      # for i in range(5):
+      #    print(importancy)
+      #    if int(importancy) > int(i):
+      #       importancy_range = importancy_range + '&#9734'
+
+
+      # context['tasks']['importancy_range'] = importancy_range
+
       context['tasks_completed'] = context['tasks'].filter(user=self.request.user, complete=True)
       context['tasks'] = context['tasks'].filter(user=self.request.user, complete=False)
 
       context['count_completed'] = context['tasks_completed'].count() or 0
       context['count'] = context['tasks'].count() or 0
+
+
+
 
       search_input = self.request.GET.get('search') or ''
       context['tasks'] = context['tasks'].filter(title__icontains=search_input)
