@@ -22,7 +22,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
 from django.http import Http404, HttpResponseRedirect
-from .models import Task
+from .models import Task, TasksList, Category
 
 
 class CustomUserLogin(LoginView):
@@ -44,7 +44,7 @@ class CustomUserLogin(LoginView):
 
 
 # Create your views here.
-class TaskList(LoginRequiredMixin, ListView): 
+class TasksView(LoginRequiredMixin, ListView): 
    
    model = Task
    context_object_name = 'tasks'
@@ -52,16 +52,6 @@ class TaskList(LoginRequiredMixin, ListView):
    def get_context_data(self, **kwargs):
 
       context = super().get_context_data(**kwargs)
-
-      # importancy = context['tasks']['importancy']
-      # importancy_range = ''
-      # for i in range(5):
-      #    print(importancy)
-      #    if int(importancy) > int(i):
-      #       importancy_range = importancy_range + '&#9734'
-
-
-      # context['tasks']['importancy_range'] = importancy_range
 
       context['tasks_completed'] = context['tasks'].filter(user=self.request.user, complete=True)
       context['tasks'] = context['tasks'].filter(user=self.request.user, complete=False)
@@ -76,6 +66,16 @@ class TaskList(LoginRequiredMixin, ListView):
       context['tasks'] = context['tasks'].filter(title__icontains=search_input)
       context['search_input'] = search_input
       return context
+
+class TaskListsView(LoginRequiredMixin, ListView): 
+   
+   model = TasksList
+   context_object_name = 'lists'
+
+class CategoryView(LoginRequiredMixin, ListView): 
+   
+   model = Category
+   context_object_name = 'categories'
 
 
 class RegisterPage(FormView):

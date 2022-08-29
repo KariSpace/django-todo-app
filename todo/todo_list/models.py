@@ -29,10 +29,10 @@ class Category(models.Model):
 
 class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    tasks_list = models.ForeignKey(TasksList, on_delete=models.CASCADE)
+    tasks_list = models.ForeignKey(TasksList,null=True, default=None, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200)
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, null=True, default=None)
     description = models.TextField(null=True, blank=True)
     importancy = models.IntegerField(blank=True, default=1, validators=[
             MaxValueValidator(5),
