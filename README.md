@@ -6,14 +6,16 @@
 Based on [Dennis Ivy YouTube tutorial](https://www.youtube.com/watch?v=llbtoQTt4qw) but with customization during process.
 
 Avaible features: 
-- Login\Registration 
-- CRUD for todos
-- Django admin panel simple customization
-- Search
+- ✅ Login\Registration 
+- ✅ CRUD for todos
+- ✅ Django admin panel simple customization
+- ✅ Search (task, category, list)
 
 
 Future features that not included in tutorial
-- Creating lists
+- ✅ Creating lists - One to many relations with tasks
+- ✅ Creating Categories - Many to many relations with tasks
+
 - Different types of tasks with content (images, videos, links, files)
-- Content search before add to list
-- List sharing
+- Dynemic content search before add to list
+- List sharing with registered users
