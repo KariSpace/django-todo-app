@@ -19,37 +19,21 @@
 
 <div class="container">
     <p class="container_title"> You have {{count}} tasks to do</p>
-    <a href="{% url  'createTask' %}" class="button">Create task</a>
+    <a href="{% url  'createList' %}" class="button">Create task</a>
 
 </div>
 <div class="tacks_container container">
-    {% for task in tasks %}
+    {% for list in taskslist %}
     <div class="task">
 
-        <div class="rating_conteiner">
-
-            {% for i in '01234'|make_list %} {% if task.importancy >= forloop.counter %} <span>&starf;</span> {% else %} <span> &star; </span> {% endif %} {% endfor %}
-
-        </div>
 
 
-        <p class="task_title">{{task.title}}</p>
-        <p> {{task.description}} </p>
-        <p> {{task.tasks_list.task_name}} </p>
-        <p>
-            {% for category in task.categories.all %} {{category.category_name}} {% empty %} {% endfor %}
-        </p>
-        <p>deadline: {{task.deadline}} </p>
-
-
-
-
+        <p class="task_title">{{list.task_name}}</p>
 
         <div class="todo_buttons__container">
             <div class="todo_buttons__list">
-                <a href="{% url  'completeTask' task.id %}" class="button todo_button ">Complete</a>
-                <a href="{% url  'updateTask' task.id %}" class="button todo_button light"> Edit</a>
-                <a href="{% url  'deleteTask' task.id %}" class="button todo_button light">Delete</a>
+                <a href="{% url  'updateList' list.id %}" class="button todo_button light"> Edit</a>
+                <a href="{% url  'deleteList' list.id %}" class="button todo_button light">Delete</a>
             </div>
         </div>
     </div>

@@ -1,0 +1,45 @@
+{% extends 'main-template.html' %} {% block content %}
+
+<div class="container search_container">
+
+    <div class="user_container">
+        {% if request.user.is_authenticated %} {{request.user}}
+
+        <a href="{% url 'logout' %}">Log Out</a> {% else %}
+        <a href="{% url 'login' %}">Log In</a> {% endif %}
+    </div>
+    <form method="GET" class="input_box">
+        <input type="text" name="search" class="search_box" value="{{search_input}}">
+        <span class="icon">
+        <input type="submit" class="button search_icon" value="Search">
+        </span>
+    </form>
+
+</div>
+
+<div class="container">
+    <p class="container_title"> You have {{count}} tasks to do</p>
+    <a href="{% url  'createCategory' %}" class="button">Create task</a>
+
+</div>
+<div class="tacks_container container">
+    {% for category in categories %}
+    <div class="task">
+
+        <p class="task_title">{{category.category_name}}</p>
+
+
+        <div class="todo_buttons__container">
+            <div class="todo_buttons__list">
+                <a href="{% url  'updateCategory' category.id %}" class="button todo_button light"> Edit</a>
+                <a href="{% url  'deleteCategory' category.id %}" class="button todo_button light">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <h3 class="h3">Nothing to do</h3>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}
