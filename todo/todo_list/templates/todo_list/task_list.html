@@ -19,7 +19,7 @@
 
 <div class="container">
     <p class="container_title"> You have {{count}} tasks to do</p>
-    <a href="{% url  'create' %}" class="button">Create task</a>
+    <a href="{% url  'createTask' %}" class="button">Create task</a>
 
 </div>
 <div class="tacks_container container">
@@ -35,7 +35,10 @@
 
         <p class="task_title">{{task.title}}</p>
         <p> {{task.description}} </p>
-        <p> {{task.categories}} </p>
+        <p> {{task.tasks_list.task_name}} </p>
+        <p>
+            {% for category in task.categories.all %} {{category.category_name}} {% empty %} {% endfor %}
+        </p>
         <p>deadline: {{task.deadline}} </p>
 
 
@@ -44,9 +47,9 @@
 
         <div class="todo_buttons__container">
             <div class="todo_buttons__list">
-                <a href="{% url  'complete' task.id %}" class="button todo_button ">Complete</a>
-                <a href="{% url  'update' task.id %}" class="button todo_button light"> Edit</a>
-                <a href="{% url  'delete' task.id %}" class="button todo_button light">Delete</a>
+                <a href="{% url  'completeTask' task.id %}" class="button todo_button ">Complete</a>
+                <a href="{% url  'updateTask' task.id %}" class="button todo_button light"> Edit</a>
+                <a href="{% url  'deleteTask' task.id %}" class="button todo_button light">Delete</a>
             </div>
         </div>
     </div>

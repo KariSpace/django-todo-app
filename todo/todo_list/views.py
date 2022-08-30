@@ -43,41 +43,6 @@ class CustomUserLogin(LoginView):
       return reverse_lazy('tasks')
 
 
-# Create your views here.
-class TasksView(LoginRequiredMixin, ListView): 
-   
-   model = Task
-   context_object_name = 'tasks'
-
-   def get_context_data(self, **kwargs):
-
-      context = super().get_context_data(**kwargs)
-
-      context['tasks_completed'] = context['tasks'].filter(user=self.request.user, complete=True)
-      context['tasks'] = context['tasks'].filter(user=self.request.user, complete=False)
-
-      context['count_completed'] = context['tasks_completed'].count() or 0
-      context['count'] = context['tasks'].count() or 0
-
-
-
-
-      search_input = self.request.GET.get('search') or ''
-      context['tasks'] = context['tasks'].filter(title__icontains=search_input)
-      context['search_input'] = search_input
-      return context
-
-class TaskListsView(LoginRequiredMixin, ListView): 
-   
-   model = TasksList
-   context_object_name = 'lists'
-
-class CategoryView(LoginRequiredMixin, ListView): 
-   
-   model = Category
-   context_object_name = 'categories'
-
-
 class RegisterPage(FormView):
    template_name = 'todo_list/register.html'
    form_class = UserCreationForm
@@ -95,6 +60,132 @@ class RegisterPage(FormView):
         return super(RegisterPage, self).get(*args, **kwargs)
 
 
+
+# Create your views here.
+class TaskListsView(LoginRequiredMixin, ListView): 
+   
+   model = TasksList
+   context_object_name = 'taskslist'
+   def get_context_data(self, **kwargs):
+
+      context = super().get_context_data(**kwargs)
+
+      context['taskslist'] = context['taskslist'].filter(user=self.request.user)
+
+      context['count_taskslist'] = context['taskslist'].count() or 0
+
+      search_input = self.request.GET.get('search') or ''
+      context['taskslist'] = context['taskslist'].filter(task_name__icontains=search_input)
+      context['search_input'] = search_input
+      return context
+
+
+class TaskListsCreate(LoginRequiredMixin, CreateView): 
+   model = TasksList
+
+   # will make it more pretty sometime later
+   fields =  ['task_name']
+   success_url = reverse_lazy('lists')
+
+   def get_context_data(self, **kwargs):
+         context = super().get_context_data(**kwargs)
+         return context
+
+   def form_valid (self, form) : 
+      form.instance.user = self.request.user
+      return super(TaskListsCreate, self).form_valid(form)
+
+
+class TaskListsUpdate(LoginRequiredMixin, UpdateView): 
+   model = TasksList
+   
+   # will make it more pretty sometime later
+   fields =  ['task_name'] 
+   success_url = reverse_lazy('lists')
+
+   def dispatch(self, request, *args, **kwargs):
+      task=self.get_object()
+      if task.user != self.request.user:
+         raise Http404("You don't have permission to edit this list")
+         # return render('404.html')  
+      return super().dispatch(request, *args, **kwargs)
+
+
+class TaskListsDelete(LoginRequiredMixin, DeleteView): 
+   model = TasksList
+   context_object_name = 'taskslist'
+   success_url = reverse_lazy('lists')
+
+
+
+
+
+
+class CategoryView(LoginRequiredMixin, ListView): 
+   
+   model = Category
+   context_object_name = 'categories'
+
+
+class CategoryCreate(LoginRequiredMixin, CreateView): 
+   model = Category
+
+   fields =  ['category_name']
+   success_url = reverse_lazy('categories')
+
+   def get_context_data(self, **kwargs):
+         context = super().get_context_data(**kwargs)
+         return context
+
+   def form_valid (self, form) : 
+      form.instance.user = self.request.user
+      return super(CategoryCreate, self).form_valid(form)
+
+
+class CategoryUpdate(LoginRequiredMixin, UpdateView): 
+   model = Category
+   
+   fields =  ['category_name'] 
+   success_url = reverse_lazy('categories')
+
+   def dispatch(self, request, *args, **kwargs):
+      category=self.get_object()
+      if category.user != self.request.user:
+         raise Http404("You don't have permission to edit this categories")
+      return super().dispatch(request, *args, **kwargs)
+
+
+class CategoryDelete(LoginRequiredMixin, DeleteView): 
+   model = Category
+   context_object_name = 'categories'
+   success_url = reverse_lazy('categories')
+
+
+
+
+
+
+class TasksView(LoginRequiredMixin, ListView): 
+   
+   model = Task
+   context_object_name = 'tasks'
+
+   def get_context_data(self, **kwargs):
+
+      context = super().get_context_data(**kwargs)
+
+      context['tasks_completed'] = context['tasks'].filter(user=self.request.user, complete=True)
+      context['tasks'] = context['tasks'].filter(user=self.request.user, complete=False)
+
+      context['count_completed'] = context['tasks_completed'].count() or 0
+      context['count'] = context['tasks'].count() or 0
+
+      search_input = self.request.GET.get('search') or ''
+      context['tasks'] = context['tasks'].filter(title__icontains=search_input)
+      context['search_input'] = search_input
+      return context
+
+
 class TaskDetail(LoginRequiredMixin, DetailView): 
    model = Task
    context_object_name = 'detail'
@@ -105,7 +196,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
    model = Task
 
    # will make it more pretty sometime later
-   fields =  ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
+   fields =  ['title', 'tasks_list', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
 
    def get_context_data(self, **kwargs):
@@ -121,7 +212,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
    model = Task
    
    # will make it more pretty sometime later
-   fields = ['title', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
+   fields = ['title', 'tasks_list', 'description', 'complete', 'description', 'categories', 'have_deadline', 'deadline', 'importancy']
    success_url = reverse_lazy('tasks')
 
    def dispatch(self, request, *args, **kwargs):

@@ -68,7 +68,6 @@ input.search_icon {
 .button {
     background: rgb(84, 113, 194);
     border: 1px solid rgb(84, 113, 194);
-    padding: 0px 10px;
     width: 100px;
     color: #fff;
     border-radius: 5px;
@@ -125,7 +124,6 @@ input.search_icon {
 }
 
 .todo_button {
-    padding: 0px 10px;
     width: 76px;
     color: #fff;
     border-radius: 5px;

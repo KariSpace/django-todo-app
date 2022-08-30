@@ -12,15 +12,22 @@ urlpatterns = [
     path('register/', RegisterPage.as_view(), name='register'),
 
     path('categories/', CategoryView.as_view(), name='categories'),
-    path('lists/', TaskListsView.as_view(), name='lists'),
+    path('createCategory/', CategoryCreate.as_view(), name='createCategory'),
+    path('updateCategory/<int:pk>/', CategoryUpdate.as_view(), name='updateCategory'),
+    path('deleteCategory/<int:pk>/', CategoryDelete.as_view(), name='deleteCategory'),
 
-    path('', TasksView.as_view(), name='tasks'),
 
-    path('details/<int:pk>/', TaskDetail.as_view(), name='details'),
-    path('create/', TaskCreate.as_view(), name='create'),
-    path('update/<int:pk>/', TaskUpdate.as_view(), name='update'),
-    path('complete/<int:pk>/', TaskUpdate.as_view(), name='complete'),
-    path('delete/<int:pk>/', TaskDelete.as_view(), name='delete'),
+    path('', TaskListsView.as_view(), name='lists'),
+    path('createList/', TaskListsCreate.as_view(), name='createList'),
+    path('updateList/<int:pk>/', TaskListsUpdate.as_view(), name='updateList'),
+    path('deleteList/<int:pk>/', TaskListsDelete.as_view(), name='deleteList'),
+
+    path('tasks/', TasksView.as_view(), name='tasks'),
+    path('details/<int:pk>/', TaskDetail.as_view(), name='detailsTask'),
+    path('createTask/', TaskCreate.as_view(), name='createTask'),
+    path('updateTask/<int:pk>/', TaskUpdate.as_view(), name='updateTask'),
+    path('completeTask/<int:pk>/', TaskUpdate.as_view(), name='completeTask'),
+    path('deleteTask/<int:pk>/', TaskDelete.as_view(), name='deleteTask'),
 
     # path('error', name='error')
 

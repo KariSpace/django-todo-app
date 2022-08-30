@@ -19,21 +19,20 @@
 
 <div class="container">
     <p class="container_title"> You have {{count}} tasks to do</p>
-    <a href="{% url  'createList' %}" class="button">Create task</a>
+    <a href="{% url  'createCategory' %}" class="button">Create task</a>
 
 </div>
 <div class="tacks_container container">
-    {% for list in taskslist %}
+    {% for category in categories %}
     <div class="task">
 
+        <p class="task_title">{{category.category_name}}</p>
 
-
-        <p class="task_title">{{list.task_name}}</p>
 
         <div class="todo_buttons__container">
             <div class="todo_buttons__list">
-                <a href="{% url  'updateList' list.id %}" class="button todo_button light"> Edit</a>
-                <a href="{% url  'deleteList' list.id %}" class="button todo_button light">Delete</a>
+                <a href="{% url  'updateCategory' category.id %}" class="button todo_button light"> Edit</a>
+                <a href="{% url  'deleteCategory' category.id %}" class="button todo_button light">Delete</a>
             </div>
         </div>
     </div>
@@ -42,24 +41,5 @@
     {% endfor %}
 </div>
 
-<div class="container">
-    <p> You completed {{count_completed}} tasks</p>
-</div>
-<div class="tacks_container container completed_container">
-    {% for task_completed in tasks_completed %}
-
-
-    <div class="task completed">
-
-        <p class="task_title task_title__completed"> {{task_completed.title}}</p>
-        <p> {{task_completed.description}} </p>
-
-    </div>
-    {% empty %}
-
-    <h3 class="h3">No completed</h3>
-    {% endfor %}
-
-</div>
 
 {% endblock content %}
