@@ -126,6 +126,19 @@ class CategoryView(LoginRequiredMixin, ListView):
    model = Category
    context_object_name = 'categories'
 
+   def get_context_data(self, **kwargs):
+
+      context = super().get_context_data(**kwargs)
+
+      context['categories'] = context['categories'].filter(user=self.request.user)
+
+      context['count'] = context['categories'].count() or 0
+
+      search_input = self.request.GET.get('search') or ''
+      context['categories'] = context['categories'].filter(category_name__icontains=search_input)
+      context['search_input'] = search_input
+      return context
+
 
 class CategoryCreate(LoginRequiredMixin, CreateView): 
    model = Category

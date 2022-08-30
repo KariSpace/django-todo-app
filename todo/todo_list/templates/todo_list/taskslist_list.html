@@ -8,25 +8,25 @@
         <a href="{% url 'logout' %}">Log Out</a> {% else %}
         <a href="{% url 'login' %}">Log In</a> {% endif %}
     </div>
+
+    <a href="{% url 'tasks' %}" class="button ">Back to Tasks</a>
+    <a href="{% url 'categories' %}" class="button light">Edit Categories</a>
+
     <form method="GET" class="input_box">
         <input type="text" name="search" class="search_box" value="{{search_input}}">
         <span class="icon">
         <input type="submit" class="button search_icon" value="Search">
         </span>
     </form>
-
 </div>
 
 <div class="container">
-    <p class="container_title"> You have {{count}} tasks to do</p>
-    <a href="{% url  'createList' %}" class="button">Create task</a>
-
+    <p class="container_title"> You have {{count_taskslist}} lists</p>
+    <a href="{% url  'createList' %}" class="button">Create list</a>
 </div>
 <div class="tacks_container container">
     {% for list in taskslist %}
     <div class="task">
-
-
 
         <p class="task_title">{{list.task_name}}</p>
 
@@ -38,28 +38,9 @@
         </div>
     </div>
     {% empty %}
-    <h3 class="h3">Nothing to do</h3>
+    <h3 class="h3">Nothing found</h3>
     {% endfor %}
 </div>
 
-<div class="container">
-    <p> You completed {{count_completed}} tasks</p>
-</div>
-<div class="tacks_container container completed_container">
-    {% for task_completed in tasks_completed %}
-
-
-    <div class="task completed">
-
-        <p class="task_title task_title__completed"> {{task_completed.title}}</p>
-        <p> {{task_completed.description}} </p>
-
-    </div>
-    {% empty %}
-
-    <h3 class="h3">No completed</h3>
-    {% endfor %}
-
-</div>
 
 {% endblock content %}
