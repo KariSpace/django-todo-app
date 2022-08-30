@@ -8,6 +8,11 @@
         <a href="{% url 'logout' %}">Log Out</a> {% else %}
         <a href="{% url 'login' %}">Log In</a> {% endif %}
     </div>
+
+    <a href="{% url 'tasks' %}" class="button ">Back to Tasks</a>
+    <a href="{% url 'lists' %}" class="button light">Edit lists</a>
+
+
     <form method="GET" class="input_box">
         <input type="text" name="search" class="search_box" value="{{search_input}}">
         <span class="icon">
@@ -18,8 +23,8 @@
 </div>
 
 <div class="container">
-    <p class="container_title"> You have {{count}} tasks to do</p>
-    <a href="{% url  'createCategory' %}" class="button">Create task</a>
+    <p class="container_title"> You have {{count}} categories</p>
+    <a href="{% url  'createCategory' %}" class="button">Create category</a>
 
 </div>
 <div class="tacks_container container">
@@ -37,7 +42,7 @@
         </div>
     </div>
     {% empty %}
-    <h3 class="h3">Nothing to do</h3>
+    <h3 class="h3">Nothing found</h3>
     {% endfor %}
 </div>
 

@@ -17,12 +17,12 @@ urlpatterns = [
     path('deleteCategory/<int:pk>/', CategoryDelete.as_view(), name='deleteCategory'),
 
 
-    path('', TaskListsView.as_view(), name='lists'),
+    path('lists/', TaskListsView.as_view(), name='lists'),
     path('createList/', TaskListsCreate.as_view(), name='createList'),
     path('updateList/<int:pk>/', TaskListsUpdate.as_view(), name='updateList'),
     path('deleteList/<int:pk>/', TaskListsDelete.as_view(), name='deleteList'),
 
-    path('tasks/', TasksView.as_view(), name='tasks'),
+    path('', TasksView.as_view(), name='tasks'),
     path('details/<int:pk>/', TaskDetail.as_view(), name='detailsTask'),
     path('createTask/', TaskCreate.as_view(), name='createTask'),
     path('updateTask/<int:pk>/', TaskUpdate.as_view(), name='updateTask'),

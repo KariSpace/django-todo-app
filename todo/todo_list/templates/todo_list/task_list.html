@@ -8,6 +8,11 @@
         <a href="{% url 'logout' %}">Log Out</a> {% else %}
         <a href="{% url 'login' %}">Log In</a> {% endif %}
     </div>
+
+    <a href="{% url 'categories' %}" class="button ">Edit Categories</a>
+    <a href="{% url 'lists' %}" class="button ">Edit Lists</a>
+
+
     <form method="GET" class="input_box">
         <input type="text" name="search" class="search_box" value="{{search_input}}">
         <span class="icon">
@@ -27,11 +32,8 @@
     <div class="task">
 
         <div class="rating_conteiner">
-
             {% for i in '01234'|make_list %} {% if task.importancy >= forloop.counter %} <span>&starf;</span> {% else %} <span> &star; </span> {% endif %} {% endfor %}
-
         </div>
-
 
         <p class="task_title">{{task.title}}</p>
         <p> {{task.description}} </p>
@@ -40,10 +42,6 @@
             {% for category in task.categories.all %} {{category.category_name}} {% empty %} {% endfor %}
         </p>
         <p>deadline: {{task.deadline}} </p>
-
-
-
-
 
         <div class="todo_buttons__container">
             <div class="todo_buttons__list">
